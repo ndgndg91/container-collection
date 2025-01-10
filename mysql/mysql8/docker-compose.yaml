@@ -1,0 +1,25 @@
+services:
+  mysql8:
+    image: mysql:8
+    container_name: mysql8
+    platform: linux/amd64 # m4
+    ports:
+      - "3308:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password8
+      MYSQL_DATABASE: sample_db_8
+      MYSQL_USER: user8
+      MYSQL_PASSWORD: user_password8
+    command: [
+      "mysqld",
+      "--character-set-server=utf8mb4",
+      "--collation-server=utf8mb4_unicode_ci"
+    ]
+#    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - mysql8_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./my.conf:/etc/mysql/my.cnf
+
+volumes:
+  mysql8_data:
