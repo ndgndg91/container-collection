@@ -1,1 +1,1 @@
-https://github.com/minhhungit/mongodb-cluster-docker-compose/blob/master/minimize/readme.md
+https://github.com/bitnami/containers/blob/main/bitnami/mongodb-sharded/README.md
