@@ -1,1 +1,2 @@
-https://github.com/bitnami/containers/blob/main/bitnami/mongodb-sharded/README.md
+- https://github.com/bitnami/containers/blob/main/bitnami/mongodb-sharded/README.md
+- https://github.com/minhhungit/mongodb-cluster-docker-compose
