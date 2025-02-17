@@ -1,10 +1,6 @@
 # Reference
 - [참고 README](https://github.com/yasasdy/mongodb-sharding/blob/main/README.md)
 
-# start config server
-```
-docker-compose -f config_server/docker-compose.yml up -d
-```
 # connect config server
 ```
 mongosh mongodb://localhost:10001
@@ -28,12 +24,6 @@ rs.initiate(
 # check replica set status
 ```
 rs.status()
-```
-
-# Shard Server
-```
-docker-compose -f shard_server1/docker-compose.yml up -d
-docker-compose -f shard_server2/docker-compose.yml up -d
 ```
 
 # connect container
@@ -72,7 +62,6 @@ rs.initiate(
 
 # start router
 ```
-docker-compose -f router/docker-compose.yml up -d
 docker exec -it mongos mongosh
 mongosh mongodb://localhost:30000
 ```
@@ -89,6 +78,7 @@ sh.addShard("shard2_rs/shardsvr2_1:27017,shardsvr2_2:27017,shardsvr2_3:27017")
 use <database>
 sh.enableSharding("<database>")
 sh.shardCollection("<database>.<collection>", { <shard key field> : "hashed" , ... } )
+sh.status()
 ```
 
 # docker volume 삭제 Cheat sheet

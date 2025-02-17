@@ -1,0 +1,105 @@
+services:
+  configsvr1:
+    container_name: configsvr1
+    image: mongo:latest
+    command: mongod --configsvr --replSet config_rs --dbpath /data/db --port 27017
+    ports:
+      - "10001:27017"
+    volumes:
+      - sharding_mongodb_configsvr1:/data/db
+
+  configsvr2:
+    container_name: configsvr2
+    image: mongo:latest
+    command: mongod --configsvr --replSet config_rs --dbpath /data/db --port 27017
+    ports:
+      - "10002:27017"
+    volumes:
+      - sharding_mongodb_configsvr2:/data/db
+
+  configsvr3:
+    container_name: configsvr3
+    image: mongo:latest
+    command: mongod --configsvr --replSet config_rs --dbpath /data/db --port 27017
+    ports:
+      - "10003:27017"
+    volumes:
+      - sharding_mongodb_configsvr3:/data/db
+  mongos:
+    depends_on:
+      - configsvr1
+      - configsvr2
+      - configsvr3
+      - shardsvr1_1
+      - shardsvr1_2
+      - shardsvr1_3
+      - shardsvr2_1
+      - shardsvr2_2
+      - shardsvr2_3
+    container_name: mongos
+    image: mongo:latest
+    command: mongos --configdb config_rs/configsvr1:27017,configsvr2:27017,configsvr3:27017 --port 27017 --bind_ip_all
+    ports:
+      - "30000:27017"
+  shardsvr1_1:
+    container_name: shardsvr1_1
+    image: mongo:latest
+    command: mongod --shardsvr --replSet shard1_rs --dbpath /data/db --port 27017
+    ports:
+      - "20001:27017"
+    volumes:
+      - sharding_mongodb_shardsvr1_1:/data/db
+
+  shardsvr1_2:
+    container_name: shardsvr1_2
+    image: mongo:latest
+    command: mongod --shardsvr --replSet shard1_rs --dbpath /data/db --port 27017
+    ports:
+      - "20002:27017"
+    volumes:
+      - sharding_mongodb_shardsvr1_2:/data/db
+
+  shardsvr1_3:
+    container_name: shardsvr1_3
+    image: mongo:latest
+    command: mongod --shardsvr --replSet shard1_rs --dbpath /data/db --port 27017
+    ports:
+      - "20003:27017"
+    volumes:
+      - sharding_mongodb_shardsvr1_3:/data/db
+
+  shardsvr2_1:
+    container_name: shardsvr2_1
+    image: mongo:latest
+    command: mongod --shardsvr --replSet shard2_rs --dbpath /data/db --port 27017
+    ports:
+      - "20004:27017"
+    volumes:
+      - sharding_mongodb_shardsvr2_1:/data/db
+  shardsvr2_2:
+    container_name: shardsvr2_2
+    image: mongo:latest
+    command: mongod --shardsvr --replSet shard2_rs --dbpath /data/db --port 27017
+    ports:
+      - "20005:27017"
+    volumes:
+      - sharding_mongodb_shardsvr2_2:/data/db
+  shardsvr2_3:
+    container_name: shardsvr2_3
+    image: mongo:latest
+    command: mongod --shardsvr --replSet shard2_rs --dbpath /data/db --port 27017
+    ports:
+      - "20006:27017"
+    volumes:
+      - sharding_mongodb_shardsvr2_3:/data/db
+
+volumes:
+  sharding_mongodb_configsvr1:
+  sharding_mongodb_configsvr2:
+  sharding_mongodb_configsvr3:
+  sharding_mongodb_shardsvr1_1:
+  sharding_mongodb_shardsvr1_2:
+  sharding_mongodb_shardsvr1_3:
+  sharding_mongodb_shardsvr2_1:
+  sharding_mongodb_shardsvr2_2:
+  sharding_mongodb_shardsvr2_3:
