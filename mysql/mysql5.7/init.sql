@@ -11,7 +11,10 @@ FLUSH PRIVILEGES;
 
 SHOW GRANTS FOR 'ndgndg91'@'%';
 
+-- 데이터베이스 생성 추가
+CREATE DATABASE IF NOT EXISTS my_sandbox;
 USE my_sandbox;
+
 CREATE TABLE IF NOT EXISTS execution_history
 (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
