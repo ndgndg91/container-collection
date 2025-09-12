@@ -6,7 +6,7 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
 
   kafka-broker1:
-    image: confluentinc/cp-kafka:latest
+    image: confluentinc/cp-kafka:7.4.0
     depends_on:
       - zookeeper
     environment:
@@ -20,7 +20,7 @@ services:
       - "9092:9092"
 
   kafka-broker2:
-    image: confluentinc/cp-kafka:latest
+    image: confluentinc/cp-kafka:7.4.0
     depends_on:
       - zookeeper
     environment:
@@ -34,7 +34,7 @@ services:
       - "9093:9093"
 
   kafka-broker3:
-    image: confluentinc/cp-kafka:latest
+    image: confluentinc/cp-kafka:7.4.0
     depends_on:
       - zookeeper
     environment:
